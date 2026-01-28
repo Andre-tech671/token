@@ -1,6 +1,8 @@
 import Principal "mo:base/Principal";
 import HashMap "mo:base/HashMap";
 import Debug "mo:base/Debug";
+import Text "mo:base/Text";
+import Nat "mo:base/Nat";
 persistent actor Token {
   // Token properties
   stable var owner : Principal = Principal.fromText("e2sog-c54h3-6wtdu-wvm7d-ihfod-oqsnz-uakz5-ne2zl-p4xdk-muaue-aae");
@@ -34,14 +36,34 @@ persistent actor Token {
     //Debug.print(debug_show(msg.caller));
 
     
-    if(balances.get(msg.caller) == null) {
-       let amount = 10000;
-       balances.put(msg.caller, 10000);
+      if(balances.get(msg.caller) == null) {
+         let amount = 10000;
+          balances.put(msg.caller, 10000);
       return "Successfully paid out tokens!";
-    } else {
-      return "You have already claimed your tokens.";
-    }; 
+      } else {
+        return "You have already claimed your tokens.";
+      }; 
    
+  };
+
+
+  public shared(msg) func transfer (to: Principal, amount: Nat): async Text {
+
+    let fromBalance = await balanceOf(msg.caller);
+    if (fromBalance > amount){
+      let newFromBalance: Nat = fromBalance - amount;
+      balances.put(msg.caller, newFromBalance);
+
+      let toBalance = await  balanceOf(to);
+      let newToBalance = toBalance + amount;
+      balances.put(to, newToBalance);
+
+       return "success";
+
+    }else{
+       return "insuffient Funds"
+    }
+
   };
   
 
