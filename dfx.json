@@ -1,29 +1,21 @@
 {
   "canisters": {
-    "internet_identity": {
-      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
-      "frontend": {},
-      "remote": {
-        "id": {
-          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
-        }
-      },
-      "type": "custom",
-      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
-    },
-    "token_backend": {
-      "main": "src/token_backend/main.mo",
+    "token": {
+      "main": "src/token/main.mo",
       "type": "motoko"
     },
-    "token_frontend": {
+    "token_assets": {
       "dependencies": [
-        "token_backend"
+        "token"
       ],
+      "frontend": {
+        "entrypoint": "src/token_assets/src/index.html"
+      },
       "source": [
-        "src/token_frontend/dist"
+        "src/token_assets/assets",
+        "dist/token_assets/"
       ],
-      "type": "assets",
-      "workspace": "token_frontend"
+      "type": "assets"
     }
   },
   "defaults": {
@@ -32,6 +24,12 @@
       "packtool": ""
     }
   },
-  "output_env_file": ".env",
+  "dfx": "0.30.2",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
   "version": 1
 }
