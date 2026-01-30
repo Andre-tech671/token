@@ -275,7 +275,7 @@ dfx canister call token transferFrom "(principal \"<from>\", principal \"<to>\",
 ```bash
 # Check your principal
 dfx identity get-principal
-# Example output: gbdev-tyqsv-hnvqv-7mgz4-4kcfl-wbv6x-6khez-y56gq-uohqs-quomc-uqe
+# Example output: e2sog-c54h3-6wtdu-wvm7d-ihfod-oqsnz-uakz5-ne2zl-p4xdk-muaue-aae
 
 # Store as variable
 OWNER_PUBLIC_KEY="principal \"$(dfx identity get-principal)\""

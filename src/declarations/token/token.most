@@ -1,0 +1,6 @@
+// Version: 1.0.0
+actor {
+  stable var owner : Principal;
+  stable var symbol : Text;
+  stable var totalSupply : Nat
+};
