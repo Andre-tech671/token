@@ -1,4 +1,4 @@
-# 🚀 Internet Computer Token Project (DAngela)
+# 🚀 Internet Computer Token Project AFRITECH
 
 A decentralized token application built on the Internet Computer protocol using Motoko for the backend and React for the frontend.
 
@@ -23,7 +23,7 @@ A decentralized token application built on the Internet Computer protocol using 
 ## ✨ Features
 
 - **🔐 Secure Token Transactions**: Built-in transfer functionality with principal-based authentication
-- **💰 Token Faucet**: Free token distribution system (10,000 DANG tokens per claim)
+- **💰 Token Faucet**: Free token distribution system (10,000 AFI tokens per claim)
 - **📊 Balance Checker**: View any account's token balance
 - **🌐 Web3 Integration**: Direct connection to Internet Computer blockchain
 - **⚡ Fast Transactions**: Sub-second transaction finality on IC network

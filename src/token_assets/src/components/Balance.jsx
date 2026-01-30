@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Balance() {
   
+  const [inputValue, setInput] = useState("");
+
   async function handleClick() {
     console.log("Balance Button Clicked");
+
   }
 
 
@@ -15,6 +18,8 @@ function Balance() {
           id="balance-principal-id"
           type="text"
           placeholder="Enter a Principal ID"
+          value={inputValue}
+          onChange ={(e)=setInput(e.target.value)}
         />
       </p>
       <p className="trade-buttons">

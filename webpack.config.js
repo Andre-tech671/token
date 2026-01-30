@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 
 function initCanisterEnv() {
   let localCanisters, prodCanisters;
@@ -49,16 +50,17 @@ module.exports = {
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx"],
     fallback: {
-      assert: require.resolve("assert/"),
-      buffer: require.resolve("buffer/"),
-      events: require.resolve("events/"),
-      stream: require.resolve("stream-browserify/"),
-      util: require.resolve("util/"),
+      assert: false,
+      buffer: false,
+      events: false,
+      stream: false,
+      util: false,
     },
   },
   output: {
     filename: "index.js",
     path: path.join(__dirname, "dist", frontendDirectory),
+    globalObject: "globalThis",
   },
   module: {
     rules: [
@@ -72,15 +74,21 @@ module.exports = {
       cache: false,
     }),
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "development",
+      NODE_ENV: JSON.stringify(isDevelopment ? "development" : "production"),
       ...canisterEnvVariables,
     }),
     new webpack.ProvidePlugin({
-      Buffer: [require.resolve("buffer/"), "Buffer"],
-      process: require.resolve("process/browser"),
+      process: "process/browser",
+      Buffer: ["buffer", "Buffer"],
+    }),
+    new DefinePlugin({
+      global: "globalThis",
     }),
   ],
   devServer: {
+    static: {
+      directory: path.join(__dirname, "dist", frontendDirectory),
+    },
     proxy: {
       "/api": {
         target: "http://localhost:8000",
@@ -91,5 +99,8 @@ module.exports = {
     hot: true,
     watchFiles: [path.resolve(__dirname, "src", frontendDirectory)],
     liveReload: true,
+    client: {
+      overlay: false,
+    },
   },
 };
